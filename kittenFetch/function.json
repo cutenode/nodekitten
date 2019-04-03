@@ -1,0 +1,39 @@
+{
+  "disabled": false,
+  "bindings": [
+    {
+      "name": "dataFetchTimer",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "*/10 * * * * *"
+    },
+    {
+      "name": "nodeVersionMetadataIn",
+      "type": "blob",
+      "path": "versions/data.json",
+      "connection": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+      "direction": "in"
+    },
+    {
+      "name": "nodeVersionMetadata",
+      "type": "blob",
+      "path": "versions/data.json",
+      "connection": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+      "direction": "out"
+    },
+    {
+      "name": "kittenUpdateTimingsIn",
+      "type": "blob",
+      "path": "versions/updates.json",
+      "connection": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+      "direction": "in"
+    },
+    {
+      "name": "kittenUpdateTimingsOut",
+      "type": "blob",
+      "path": "versions/updates.json",
+      "connection": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+      "direction": "out"
+    }
+  ]
+}

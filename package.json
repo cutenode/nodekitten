@@ -1,0 +1,18 @@
+{
+  "name": "kitten",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tierney Cyren <hello@bnb.im> (https://bnb.im)",
+  "license": "MIT",
+  "dependencies": {
+    "bent": "^1.3.0",
+    "deep-object-diff": "^1.1.0",
+    "semver": "^6.0.0",
+    "twit": "^2.2.11"
+  }
+}
