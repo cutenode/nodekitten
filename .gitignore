@@ -88,3 +88,6 @@ local.settings.json
 # TypeScript output
 dist
 out
+
+# personal
+package-lock.json
