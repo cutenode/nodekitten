@@ -23,7 +23,7 @@ module.exports = async function (context) {
   const newVersions = JSON.parse(context.bindings.tweetTriggerFromNew)
 
   for(var version in newVersions) { // loop over new.json
-    const tweet = `There's a new @nodejs release available: Node.js v${newVersions[version]} is out now! 🙀\n\n$ nvm install ${newVersions[version]}\n\n🔗 Release post (will be) available here:\nhttps://nodejs.org/en/blog/release/${newVersions[version]}/` // define what we're going to tweet
+    const tweet = `There's a new @nodejs release available: Node.js v${newVersions[version]} is out now! 🙀\n\n$ nvm install ${newVersions[version]}\n\n🔗 Release post (will be) available here:\nhttps://nodejs.org/en/blog/release/v${newVersions[version]}/` // define what we're going to tweet
     
     if(environment === 'production') {
       twitterAPI.post('statuses/update', { status: tweet }, (error, data, response) => { // Actually call the Twitter API and post a new status
