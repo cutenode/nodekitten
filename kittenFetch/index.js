@@ -9,7 +9,7 @@ const now = new Date()
 
 
 module.exports = async function (context) {
-    const currentData = context.bindings.nodeVersionMetadataIn
+    const currentData = context.bindings.nodeVersionMetadataIn // versions/data.json
     let nodeVersions = await getJSON('https://nodejs.org/dist/index.json') // read the remote JSON from an official source
     let sanitizedNodeVersions = [] // initalize the sanitized array that we can write to in loops
     for(var node in nodeVersions) {
