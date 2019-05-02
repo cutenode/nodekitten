@@ -7,15 +7,6 @@ const twitterAccessToken       = process.env.ACCESS_TOKEN
 const twitterAccessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 const environment              = process.env.FUNCTION_ENVIRONMENT
 
-// authenticate with Twitter
-const twitterAPI = new Twitter({
-  consumer_key:         twitterConsumerKey,
-  consumer_secret:      twitterConsumerSecret,
-  access_token:         twitterAccessToken,
-  access_token_secret:  twitterAccessTokenSecret,
-  timeout_ms:           60*1000  // optional HTTP request timeout to apply to all requests.
-})
-
 // helper variables
 const funcNameForLogging = 'kittenWriteLatest'
 
@@ -26,6 +17,16 @@ module.exports = async function (context) {
     const tweet = `There's a new @nodejs release available: Node.js v${newVersions[version]} is out now! 🙀\n\n$ nvm install ${newVersions[version]}\n\n🔗 Release post (will be) available here:\nhttps://nodejs.org/en/blog/release/v${newVersions[version]}/` // define what we're going to tweet
     
     if(environment === 'production') {
+
+      // authenticate with Twitter, only when we're in production
+      const twitterAPI = new Twitter({
+        consumer_key:         twitterConsumerKey,
+        consumer_secret:      twitterConsumerSecret,
+        access_token:         twitterAccessToken,
+        access_token_secret:  twitterAccessTokenSecret,
+        timeout_ms:           60*1000  // optional HTTP request timeout to apply to all requests.
+      })
+
       twitterAPI.post('statuses/update', { status: tweet }, (error, data, response) => { // Actually call the Twitter API and post a new status
         if (error) throw error
         context.log(`${funcNameForLogging}: Running in production mode`)
