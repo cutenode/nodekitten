@@ -21,7 +21,8 @@ module.exports = async function (context) {
                 'v8': nodeVersions[node].v8,
                 'libuv': nodeVersions[node].uv,
                 'openssl': nodeVersions[node].openssl,
-                'lts': nodeVersions[node].lts
+                'lts': nodeVersions[node].lts,
+                'security': nodeVersions[node].security
             }
         }
         sanitizedNodeVersions.push(sanitizedNode)
