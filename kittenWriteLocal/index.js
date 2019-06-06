@@ -15,6 +15,9 @@ module.exports = async function (context) {
   // Initialize arrays we're going to push to for versions.
   let localArray = []
   let remoteArray = []  
+
+  // Get list of versions, eventually ending up at the latest version.
+  let semverMajorsThatExistArray = []
   
   // Build out localArray with the version numbers in a format that they can be validly used by
   // in the semver module.
@@ -27,9 +30,6 @@ module.exports = async function (context) {
   for(var property in triggeringRemoteJson) {
     remoteArray.push(semver.valid(semver.coerce(triggeringRemoteJson[property].version)))
   }
-  
-  // Get list of versions, eventually ending up at the latest version.
-  let semverMajorsThatExistArray = []
   
   for(var property in triggeringRemoteJson) {
     const major = semver.major(triggeringRemoteJson[property].version) // get the semver major version of the property
