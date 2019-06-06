@@ -33,19 +33,4 @@ module.exports = async function (context) {
   
   context.log(`\n${funcNameForLogging}: Writing versions/latest.json\n`)
   context.bindings.nodeLatestVersionsOut = exportedLatestObject // update latest.json
-
-    // update `update.json` file
-    // this should be after the actual logic of updating the file, since if that fails this should not run
-    const functionUpdatesData = { [outputFileName]: now, 'updates.json': now}
-    if(context.bindings.kittenUpdateTimingsIn === undefined) {
-      const update = functionUpdatesData
-      context.bindings.kittenUpdateTimingsOut = update
-    } else {
-      const update = Object.assign(context.bindings.kittenUpdateTimingsIn, functionUpdatesData)
-      context.bindings.kittenUpdateTimingsOut = update
-    }
-
-    context.log(update)
-    context.log(`\n${funcNameForLogging}: Updated versions/${outputFileName} at: ${now}\n`)
-    // end `update.json` file logic
 }

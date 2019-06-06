@@ -52,20 +52,6 @@ module.exports = async function (context) {
 
     //update new.json
     context.bindings.kittenNewOut = diff //write new.json
-
-    // update `update.json` file
-    // this should be after the actual logic of updating the file, since if that fails this should not run
-    try {
-      const functionUpdatesData = { [outputFileName]: now, 'updates.json': now}
-      const update = Object.assign(context.bindings.kittenUpdateTimingsIn, functionUpdatesData)
-      context.bindings.kittenUpdateTimingsOut = update // write update.json
-      context.log(update)
-      context.log(`\n${funcNameForLogging}: Updated versions/${outputFileName} at: ${now}\n`)
-    } catch {
-      context.error('There was a problem with updating the execution log in versions/updates.json')
-    }
-    
-    // end `update.json` file logic
   } else {
     context.log(`\n${funcNameForLogging}: something\'s wrong!\n`)
   }

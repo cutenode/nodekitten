@@ -14,21 +14,6 @@
       "path": "versions/latest.json",
       "connection": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
       "direction": "out"
-    },
-    {
-      "name": "kittenUpdateTimingsIn",
-      "type": "blob",
-      "path": "versions/updates.json",
-      "connection": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-      "direction": "in"
-    },
-    {
-      "name": "kittenUpdateTimingsOut",
-      "type": "blob",
-      "path": "versions/updates.json",
-      "connection": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-      "direction": "out"
     }
-
   ]
 }
