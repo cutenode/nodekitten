@@ -4,9 +4,6 @@ const getJSON = bent('json')
 
 // helper variables
 const funcNameForLogging = 'kittenFetch'
-const outputFileName = 'data.json'
-const now = new Date()
-
 
 module.exports = async function (context) {
     const currentData = context.bindings.nodeVersionMetadataIn // versions/data.json

@@ -13,7 +13,6 @@ module.exports = async function (context) {
 
   // Initialize the object we're going to ship out as latest.json
   const exportedLatestObject = {}
-  const theNewVersions = {}
 
   // Loop over triggeringRemoteJson and update the specific version(s) that are new
   for(var property in triggeringRemoteJson) {

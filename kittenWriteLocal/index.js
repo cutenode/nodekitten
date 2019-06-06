@@ -2,8 +2,6 @@ const semver = require('semver')
 
 // helper variables
 const funcNameForLogging = 'kittenWriteLocal'
-const outputFileName = 'local.json'
-const now = new Date()
 
 module.exports = async function (context) {
   // Pull in remote JSON that kittenFetchAndWrite wrote to blob storage so we can compare against it
