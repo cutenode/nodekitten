@@ -90,5 +90,4 @@ dist
 out
 
 # personal
-package-lock.json
 extensions.csproj
