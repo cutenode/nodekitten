@@ -12,26 +12,56 @@ const OctokitWithPagination = Octokit.plugin(paginateRest);
 main();
 
 async function main() {
-  const { stdout } = await execa("git", [
-    "diff",
-    EVENT_PAYLOAD.before,
-    "cache/index.json",
-  ]);
-
-  if (!stdout.trim()) {
-    console.log("No change found. Bye.");
-    return;
-  }
-
-  const newLines = stdout
-    .split("\n")
-    .filter((line) => /^\+  /.test(line))
-    .map((line) => line.substr(3));
-  const jsonString = `[ ${newLines.join("\n").replace(/,$/, "")} ]`;
-
-  const newVersions = JSON.parse(jsonString);
+  const afterCache = require("../cache/index.json");
+  // await execa("git", ["checkout", EVENT_PAYLOAD.before]);
 
   try {
+    const repoOctokit = new Octokit({
+      auth: process.env.GITHUB_TOKEN,
+    });
+
+    const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
+    const requestOptions = await repoOctokit.request.endpoint(
+      "GET /repos/{owner}/{repo}/contents/{path}",
+      {
+        owner,
+        repo,
+        path: "cache/index.json",
+        ref: EVENT_PAYLOAD.before,
+        mediaType: {
+          format: "raw",
+        },
+      }
+    );
+
+    console.log(requestOptions.method, requestOptions.url);
+    const { data: jsonContent } = await repoOctokit.request(requestOptions);
+
+    const beforeCache = JSON.parse(jsonContent);
+
+    console.log(`beforeCache[0].version`);
+    console.log(beforeCache[0].version);
+    console.log(`afterCache[0].version`);
+    console.log(afterCache[0].version);
+
+    return;
+
+    if (!diffString) {
+      console.log("No change found. Bye.");
+      return;
+    }
+
+    console.log("Diff found");
+    console.log(diffString);
+
+    const newLines = diffString
+      .split("\n")
+      .filter((line) => /^\+  /.test(line))
+      .map((line) => line.substr(3));
+    const jsonString = `[ ${newLines.join("\n").replace(/,$/, "")} ]`;
+
+    const newVersions = JSON.parse(jsonString);
+
     const octokit = new OctokitWithPagination({
       auth: {
         id: APP_ID,
@@ -81,7 +111,7 @@ async function main() {
             {
               owner: login,
               repo: name,
-              event_type: 'nodekitten',
+              event_type: "nodekitten",
               client_payload: newVersion,
             }
           );
