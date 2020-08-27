@@ -81,7 +81,7 @@ async function main() {
             {
               owner: login,
               repo: name,
-              event_type: EVENT_TYPE,
+              event_type: 'nodekitten',
               client_payload: newVersion,
             }
           );
