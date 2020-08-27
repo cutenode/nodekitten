@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - debug
 
 jobs:
   notify:
@@ -14,5 +15,6 @@ jobs:
       - run: npm ci
       - run: node scripts/notify.js
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APP_ID: ${{ secrets.APP_ID }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

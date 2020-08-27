@@ -1,4 +1,3 @@
-const execa = require("execa");
 const { createAppAuth } = require("@octokit/auth-app");
 const { Octokit } = require("@octokit/core");
 const { paginateRest } = require("@octokit/plugin-paginate-rest");
@@ -12,26 +11,53 @@ const OctokitWithPagination = Octokit.plugin(paginateRest);
 main();
 
 async function main() {
-  const { stdout } = await execa("git", [
-    "diff",
-    EVENT_PAYLOAD.before,
-    "cache/index.json",
-  ]);
-
-  if (!stdout.trim()) {
-    console.log("No change found. Bye.");
-    return;
-  }
-
-  const newLines = stdout
-    .split("\n")
-    .filter((line) => /^\+  /.test(line))
-    .map((line) => line.substr(3));
-  const jsonString = `[ ${newLines.join("\n").replace(/,$/, "")} ]`;
-
-  const newVersions = JSON.parse(jsonString);
+  const afterCache = require("../cache/index.json");
 
   try {
+    const repoOctokit = new Octokit({
+      auth: process.env.GITHUB_TOKEN,
+    });
+
+    const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
+    const requestOptions = await repoOctokit.request.endpoint(
+      "GET /repos/{owner}/{repo}/contents/{path}",
+      {
+        owner,
+        repo,
+        path: "cache/index.json",
+        ref: EVENT_PAYLOAD.before,
+        mediaType: {
+          format: "raw",
+        },
+      }
+    );
+
+    console.log(requestOptions.method, requestOptions.url);
+    const { data: jsonContent } = await repoOctokit.request(requestOptions);
+
+    const beforeCache = JSON.parse(jsonContent);
+
+    const beforeCacheVersions = beforeCache.map((entry) => entry.version);
+    const newVersions = afterCache
+      .filter((entry) => !beforeCacheVersions.includes(entry.version))
+      .map((entry) => {
+        return {
+          version: entry.version,
+          date: entry.date,
+          npm: entry.npm,
+          v8: entry.v8,
+          libuv: entry.uv,
+          openssl: entry.openssl,
+          lts: entry.lts,
+          security: entry.security,
+        };
+      });
+
+    if (newVersions.length === 0) {
+      console.log("No new versions found. Bye.");
+      return;
+    }
+
     const octokit = new OctokitWithPagination({
       auth: {
         id: APP_ID,
@@ -81,7 +107,7 @@ async function main() {
             {
               owner: login,
               repo: name,
-              event_type: 'nodekitten',
+              event_type: "nodekitten",
               client_payload: newVersion,
             }
           );
