@@ -39,10 +39,13 @@ async function main() {
 
     const beforeCache = JSON.parse(jsonContent);
 
-    console.log(`beforeCache[0].version`);
-    console.log(beforeCache[0].version);
-    console.log(`afterCache[0].version`);
-    console.log(afterCache[0].version);
+    const beforeCacheVersions = beforeCache.map((entry) => entry.version);
+    const newVersions = afterCache.filter(
+      (entry) => !beforeCacheVersions.includes(entry.version)
+    );
+
+    console.log(`newVersions`);
+    console.log(newVersions);
 
     return;
 
