@@ -38,9 +38,20 @@ async function main() {
     const beforeCache = JSON.parse(jsonContent);
 
     const beforeCacheVersions = beforeCache.map((entry) => entry.version);
-    const newVersions = afterCache.filter(
-      (entry) => !beforeCacheVersions.includes(entry.version)
-    );
+    const newVersions = afterCache
+      .filter((entry) => !beforeCacheVersions.includes(entry.version))
+      .map((entry) => {
+        return {
+          version: entry.version,
+          date: entry.date,
+          npm: entry.npm,
+          v8: entry.v8,
+          libuv: entry.uv,
+          openssl: entry.openssl,
+          lts: entry.lts,
+          security: entry.security,
+        };
+      });
 
     if (newVersions.length === 0) {
       console.log("No new versions found. Bye.");
