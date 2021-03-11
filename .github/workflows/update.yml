@@ -2,9 +2,9 @@ name: Update
 
 on:
   schedule:
-   # https://crontab.guru/every-hour
-   - cron: 0 0 * * *
-#   trigger workflow manually for testing
+    # https://crontab.guru/every-hour
+    - cron: 0 0 * * *
+  # trigger workflow manually for testing
   workflow_dispatch: {}
 
 jobs:
