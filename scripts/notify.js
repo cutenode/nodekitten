@@ -39,7 +39,7 @@ async function main() {
       .filter((entry) => !beforeCacheVersions.includes(entry.version))
       .map((entry) => {
         return {
-          version: entry.version,
+          version: entry.version.replace(/^v/, ""),
           date: entry.date,
           npm: entry.npm,
           v8: entry.v8,
