@@ -132,6 +132,39 @@
     "security": false
   },
   {
+    "version": "v16.13.1",
+    "date": "2021-12-01",
+    "files": [
+      "aix-ppc64",
+      "headers",
+      "linux-arm64",
+      "linux-armv7l",
+      "linux-ppc64le",
+      "linux-s390x",
+      "linux-x64",
+      "osx-arm64-tar",
+      "osx-x64-pkg",
+      "osx-x64-tar",
+      "src",
+      "win-x64-7z",
+      "win-x64-exe",
+      "win-x64-msi",
+      "win-x64-zip",
+      "win-x86-7z",
+      "win-x86-exe",
+      "win-x86-msi",
+      "win-x86-zip"
+    ],
+    "npm": "8.1.2",
+    "v8": "9.4.146.24",
+    "uv": "1.42.0",
+    "zlib": "1.2.11",
+    "openssl": "1.1.1l+quic",
+    "modules": "93",
+    "lts": "Gallium",
+    "security": false
+  },
+  {
     "version": "v16.13.0",
     "date": "2021-10-26",
     "files": [
