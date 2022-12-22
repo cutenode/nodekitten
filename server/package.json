@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "the nodekitten server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cutenode/nodekitten.git"
+  },
+  "author": "Tierney Cyren (hello@bnb.im)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cutenode/nodekitten/issues"
+  },
+  "homepage": "https://github.com/cutenode/nodekitten#readme",
+  "dependencies": {
+    "@nodevu/core": "^0.0.4",
+    "@supabase/supabase-js": "^2.2.1",
+    "dotenv": "^16.0.3",
+    "semver": "^7.3.8",
+    "twit": "^2.2.11"
+  }
+}
